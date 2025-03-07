@@ -1,0 +1,5 @@
+0000000000000000000000000000000000000000 8626ab74291bd07417bd615c0519659e650b3621 Amod <amodschool1234@gmail.com> 1740970617 +0530	commit (initial): Initial commit - (Schema done)
+8626ab74291bd07417bd615c0519659e650b3621 55f202bfa0b4d9805b5368981d44bb8511c604b3 Amod <amodschool1234@gmail.com> 1740970714 +0530	pull origin main --rebase (finish): refs/heads/main onto d734907b45f80ece7a5b01720e3a827d0c2b4f20
+55f202bfa0b4d9805b5368981d44bb8511c604b3 b1da853bdf51f4625b903790f9b9af5c7a5c92c2 Amod <amodschool1234@gmail.com> 1741097604 +0530	commit: had a huge progress toward backend
+b1da853bdf51f4625b903790f9b9af5c7a5c92c2 044e1828797f1c8a5b3bad0537dd44b41c6686b6 Amod <amodschool1234@gmail.com> 1741143653 +0530	commit: initial commit
+044e1828797f1c8a5b3bad0537dd44b41c6686b6 8c0fa0dc2b45b6faaee98ff93b176d734b02ac18 Amod <amodschool1234@gmail.com> 1741333844 +0530	commit: all required backend checking done
