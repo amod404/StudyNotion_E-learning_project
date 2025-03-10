@@ -2,7 +2,6 @@ const User = require("../models/User");
 const OTP = require("../models/OTP");
 const Profile = require("../models/Profile");
 const otpGenerator = require('otp-generator');
-const initialImage = require('../utils/initial');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const mailSender = require("../utils/mailSender");
