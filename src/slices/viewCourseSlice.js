@@ -1,7 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit"
 
 const initialState = {
-  courseSectionData: [], //are we just collecting the data and mapping section and subsection?
+  courseSectionData: [],
   courseEntireData: [],
   completedLectures: [],
   totalNoOfLectures: 0,

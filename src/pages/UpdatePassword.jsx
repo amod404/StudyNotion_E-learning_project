@@ -1,110 +1,119 @@
-import React from "react";
-import { useDispatch, useSelector } from "react-redux";
-import Spinner from "../component/common/Spinner";
-import { resetPassword } from "../services/operation/authAPI";
-import { useLocation, useNavigate } from "react-router-dom";
-import { AiFillEyeInvisible, AiFillEye } from "react-icons/ai";
-import { Link } from "react-router-dom";
-import { useState } from "react";
-import { FaArrowLeft } from "react-icons/fa";
+import { useState } from "react"
+import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai"
+import { BiArrowBack } from "react-icons/bi"
+import { useDispatch, useSelector } from "react-redux"
+import { Link, useLocation, useNavigate } from "react-router-dom"
 
-const UpdatePassword = () => {
+import { resetPassword } from "../services/operations/authAPI"
 
-    const [formData, setFormData] = useState({
-        password:"",
-        confirmPassword:""
-    })
-    const [showPassword, setShowPassword] = useState(false);
-    const [showConfirmPassword, setShowConfirmPassword] = useState(false);
-    const {loading} = useSelector((state)=>state.auth);
-    const dispatch = useDispatch();
-    const location = useLocation();
-    const navigate = useNavigate();
+function UpdatePassword() {
+  const navigate = useNavigate()
+  const dispatch = useDispatch()
+  const location = useLocation()
+  const { loading } = useSelector((state) => state.auth)
+  const [formData, setFormData] = useState({
+    password: "",
+    confirmPassword: "",
+  })
 
-    
-    const handleOnChange = (e) => {
-        setFormData( (prevData) => ({
-            ...prevData,
-            [e.target.name] : e.target.value
-        }))
-    }
+  const [showPassword, setShowPassword] = useState(false)
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false)
 
+  const { password, confirmPassword } = formData
 
-    const handleOnSubmit = (e) => {
-        e.preventDefault();
-        const token = location.pathname.split('/').at(-1);
-        dispatch(resetPassword(formData.password, formData.confirmPassword,token,navigate));
-    }
+  const handleOnChange = (e) => {
+    setFormData((prevData) => ({
+      ...prevData,
+      [e.target.name]: e.target.value,
+    }))
+  }
 
-    return (
-    <div className="text-white w-screen h-[calc(100vh-3.5rem)] flex flex-col items-center justify-center">
-        {
-            loading ? ( 
-                <div className="flex flex-col w-screen h-[calc(100vh-3.5rem)] items-center justify-center">
-                    <Spinner/>
-                </div>
-             ) : (
-                <div className="flex flex-col p-8 gap-2 w-[40%]">
-                    <h1 className="text-richblack-5 text-4xl font-semibold mx-auto">Choose new Password</h1>
-                    <p className="text-richblack-300 mx-auto">Almost done. Enter your new passwordand yours all set.</p>
-                    <form onSubmit={handleOnSubmit}
-                    className="my-10 flex flex-col gap-8 items-center ">      
-                        <label htmlFor="password" className="text-richblack-300 text-sm relative">
-                            <p>New Password*</p>
-                            <input 
-                                required
-                                type={showPassword ? "text" : "password"}
-                                id="password"
-                                name="password"
-                                onChange={handleOnChange}
-                                placeholder="Password"
-                                className="form-style bg-richblack-700 text-white p-2 rounded-md border-b-[3px] border-b-richblack-600 focus:outline-none"
-                             />
-                             <span onClick={() => setShowPassword((prev) => !prev)}
-                             className="absolute right-2 top-[50%] -translate-y-[20%]">
-                                {
-                                    showPassword ? ( <AiFillEyeInvisible fontSize={24} />) 
-                                    : ( <AiFillEye fontSize={24}/> )
-                                }
-                             </span>
-                        </label>
-                        <label htmlFor="confirmPassword" className="text-richblack-300 text-sm relative">
-                            <p>Confirm New Password*</p>
-                            <input 
-                                required
-                                type={showConfirmPassword ? "text" : "password"}
-                                id="confirmPassword"
-                                name="confirmPassword"
-                                onChange={handleOnChange}
-                                placeholder="Confirm Password"
-                                className="form-style bg-richblack-700 text-white p-2 rounded-md border-b-[3px] border-b-richblack-600 focus:outline-none"
-                             />
-                             <span onClick={() => setShowConfirmPassword((prev) => !prev)}
-                              className="absolute right-2 top-[50%] -translate-y-[20%]">
-                                {
-                                    showConfirmPassword ? ( <AiFillEyeInvisible fontSize={24} />) 
-                                    : ( <AiFillEye fontSize={24}/> )
-                                }
-                             </span>
-                        </label>
+  const handleOnSubmit = (e) => {
+    e.preventDefault()
+    const token = location.pathname.split("/").at(-1)
+    dispatch(resetPassword(password, confirmPassword, token, navigate))
+  }
 
-                        <div className="flex flex-row w-full justify-between items-center">
-                            <Link to="/login" >
-                                <div className="w-fit p-3 px-6 text-richblack-300 font-semibold rounded-md flex flex-row gap-2 items-center">
-                                    <span> <FaArrowLeft/> </span>
-                                    <p>Back to Login</p>
-                                </div>
-                            </Link>
-                            <button type="submit" className="w-fit p-3 px-6 bg-yellow-50 text-[16px] text-black font-semibold rounded-md ">
-                                Reset Password
-                            </button>
-                        </div>
-                    </form>
-                </div>
-            ) 
-        }
+  return (
+    <div className="grid min-h-[calc(100vh-3.5rem)] place-items-center">
+      {loading ? (
+        <div className="spinner"></div>
+      ) : (
+        <div className="max-w-[500px] p-4 lg:p-8">
+          <h1 className="text-[1.875rem] font-semibold leading-[2.375rem] text-richblack-5">
+            Choose new password
+          </h1>
+          <p className="my-4 text-[1.125rem] leading-[1.625rem] text-richblack-100">
+            Almost done. Enter your new password and youre all set.
+          </p>
+          <form onSubmit={handleOnSubmit}>
+            <label className="relative">
+              <p className="mb-1 text-[0.875rem] leading-[1.375rem] text-richblack-5">
+                New Password <sup className="text-pink-200">*</sup>
+              </p>
+              <input
+                required
+                type={showPassword ? "text" : "password"}
+                name="password"
+                value={password}
+                onChange={handleOnChange}
+                placeholder="Enter Password"
+                className="form-style w-full !pr-10"
+              />
+              <span
+                onClick={() => setShowPassword((prev) => !prev)}
+                className="absolute right-3 top-[38px] z-[10] cursor-pointer"
+              >
+                {showPassword ? (
+                  <AiOutlineEyeInvisible fontSize={24} fill="#AFB2BF" />
+                ) : (
+                  <AiOutlineEye fontSize={24} fill="#AFB2BF" />
+                )}
+              </span>
+            </label>
+            <label className="relative mt-3 block">
+              <p className="mb-1 text-[0.875rem] leading-[1.375rem] text-richblack-5">
+                Confirm New Password <sup className="text-pink-200">*</sup>
+              </p>
+              <input
+                required
+                type={showConfirmPassword ? "text" : "password"}
+                name="confirmPassword"
+                value={confirmPassword}
+                onChange={handleOnChange}
+                placeholder="Confirm Password"
+                className="form-style w-full !pr-10"
+              />
+              <span
+                onClick={() => setShowConfirmPassword((prev) => !prev)}
+                className="absolute right-3 top-[38px] z-[10] cursor-pointer"
+              >
+                {showConfirmPassword ? (
+                  <AiOutlineEyeInvisible fontSize={24} fill="#AFB2BF" />
+                ) : (
+                  <AiOutlineEye fontSize={24} fill="#AFB2BF" />
+                )}
+              </span>
+            </label>
+
+            <button
+              type="submit"
+              className="mt-6 w-full rounded-[8px] bg-yellow-50 py-[12px] px-[12px] font-medium text-richblack-900"
+            >
+              Reset Password
+            </button>
+          </form>
+          <div className="mt-6 flex items-center justify-between">
+            <Link to="/login">
+              <p className="flex items-center gap-x-2 text-richblack-5">
+                <BiArrowBack /> Back To Login
+              </p>
+            </Link>
+          </div>
+        </div>
+      )}
     </div>
-  );
-};
+  )
+}
 
-export default UpdatePassword;
+export default UpdatePassword

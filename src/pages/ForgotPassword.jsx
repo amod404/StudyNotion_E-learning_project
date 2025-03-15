@@ -1,82 +1,70 @@
-import React, { useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { Link } from "react-router-dom";
-import { getPasswordResetToken } from "../services/operation/authAPI";
-import Spinner from "../component/common/Spinner";
-import { FaArrowLeft } from "react-icons/fa";
+import { useState } from "react"
+import { BiArrowBack } from "react-icons/bi"
+import { useDispatch, useSelector } from "react-redux"
+import { Link } from "react-router-dom"
 
-const ForgotPassword = () => {
-    
-    const [emailSent,setEmailSent] = useState(false);
-    const [email,setEmail] = useState("");
-    const {loading} = useSelector((state)=>state.auth)
-    const dispatch = useDispatch();
+import { getPasswordResetToken } from "../services/operations/authAPI"
 
+function ForgotPassword() {
+  const [email, setEmail] = useState("")
+  const [emailSent, setEmailSent] = useState(false)
+  const dispatch = useDispatch()
+  const { loading } = useSelector((state) => state.auth)
 
-    const handleOnSubmit = (e) => {
-        e.preventDefault();
-        dispatch(getPasswordResetToken(email,setEmailSent));
-    }
+  const handleOnSubmit = (e) => {
+    e.preventDefault()
+    dispatch(getPasswordResetToken(email, setEmailSent))
+  }
 
-
-    return (
-        <div className="text-richblack-5 flex justify-center items-center w-full h-[calc(100vh-3.5rem)]">
-            {
-                loading ? (
-                    <div className="flex flex-col w-screen h-[calc(100vh-3.5rem)] items-center justify-center">
-                        <Spinner/>
-                    </div>
-                ) : ( 
-                    <div className="flex flex-col p-8 gap-2 w-[50%]">
-                        <h1 className="text-richblack-5 text-4xl font-semibold">
-                            {
-                                !emailSent ? "Reset your Password" : "Check Your Email"
-                            }
-                        </h1>
-
-                        <p className="text-richblack-300">
-                            {
-                                !emailSent ? "Have no fear. We'll Email you instrctions to reset your password. If you dont have access to your email we can try account recovery" : `We have sent the reset email to your ${email}`
-                            }
-                        </p>
-
-                        <form onSubmit={handleOnSubmit}
-                        className="my-10 flex flex-row  gap-8 items-center ">
-                            {
-                                !emailSent && (
-                                    <label htmlFor="email" className="text-richblack-300 text-sm">
-                                        <p>Email Address*</p>
-                                        <input required
-                                        id='email'
-                                        type='email'
-                                        name='email'
-                                        value={email}
-                                        onChange={ (event) => setEmail(event.target.value)}
-                                        placeholder="Enter Your Email Address"
-                                        className="form-style bg-richblack-700 text-white p-2 rounded-md border-b-[3px] border-b-richblack-600 focus:outline-none"
-                                        ></input>
-                                    </label>
-                                )
-                            }
-                            
-                            <button type="submit" className="w-fit p-3 px-6 bg-yellow-50 text-[16px] text-black font-semibold rounded-md mt-6">
-                                {
-                                    !emailSent ? "Reset Password" : "Resend Email"
-                                }
-                            </button>
-                        </form>
-
-                        <Link to="/login" >
-                            <div className="w-fit p-3 px-6 text-richblack-300 font-semibold rounded-md flex flex-row gap-2 items-center">
-                                <span> <FaArrowLeft/> </span>
-                                <p>Back to Login</p>
-                            </div>
-                        </Link>
-                    </div> 
-                )
-            }
+  return (
+    <div className="grid min-h-[calc(100vh-3.5rem)] place-items-center">
+      {loading ? (
+        <div className="spinner"></div>
+      ) : (
+        <div className="max-w-[500px] p-4 lg:p-8">
+          <h1 className="text-[1.875rem] font-semibold leading-[2.375rem] text-richblack-5">
+            {!emailSent ? "Reset your password" : "Check email"}
+          </h1>
+          <p className="my-4 text-[1.125rem] leading-[1.625rem] text-richblack-100">
+            {!emailSent
+              ? "Have no fear. We'll email you instructions to reset your password. If you dont have access to your email we can try account recovery"
+              : `We have sent the reset email to ${email}`}
+          </p>
+          <form onSubmit={handleOnSubmit}>
+            {!emailSent && (
+              <label className="w-full">
+                <p className="mb-1 text-[0.875rem] leading-[1.375rem] text-richblack-5">
+                  Email Address <sup className="text-pink-200">*</sup>
+                </p>
+                <input
+                  required
+                  type="email"
+                  name="email"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  placeholder="Enter email address"
+                  className="form-style w-full"
+                />
+              </label>
+            )}
+            <button
+              type="submit"
+              className="mt-6 w-full rounded-[8px] bg-yellow-50 py-[12px] px-[12px] font-medium text-richblack-900"
+            >
+              {!emailSent ? "Sumbit" : "Resend Email"}
+            </button>
+          </form>
+          <div className="mt-6 flex items-center justify-between">
+            <Link to="/login">
+              <p className="flex items-center gap-x-2 text-richblack-5">
+                <BiArrowBack /> Back To Login
+              </p>
+            </Link>
+          </div>
         </div>
-    );
-};
+      )}
+    </div>
+  )
+}
 
-export default ForgotPassword;
+export default ForgotPassword

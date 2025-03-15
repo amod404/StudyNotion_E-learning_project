@@ -48,7 +48,7 @@ const cartSlice = createSlice({
         state.total -= state.cart[index].price
         state.cart.splice(index, 1)
         // Update to localstorage
-        localStorage.setItem("cart", JSON.stringify(state.cart)) //can optimize but since cart is small as there are countable courses
+        localStorage.setItem("cart", JSON.stringify(state.cart))
         localStorage.setItem("total", JSON.stringify(state.total))
         localStorage.setItem("totalItems", JSON.stringify(state.totalItems))
         // show toast
@@ -62,7 +62,7 @@ const cartSlice = createSlice({
       // Update to localstorage
       localStorage.removeItem("cart")
       localStorage.removeItem("total")
-      localStorage.removeItem("totalItems")  // if not present then ignore the call
+      localStorage.removeItem("totalItems")
     },
   },
 })

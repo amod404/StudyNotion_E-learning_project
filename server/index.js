@@ -7,7 +7,7 @@ const paymentRoutes = require('./routes/Payments');
 const profileRoutes = require('./routes/Profile');
 const userRoutes = require('./routes/User');
 
-const { connectDB } = require('./config/database');
+const {connectDB} = require("./config/database")
 const { cloudinaryConnect } = require("./config/cloudinary")
 const cookieParser = require("cookie-parser");
 const cors = require("cors")
