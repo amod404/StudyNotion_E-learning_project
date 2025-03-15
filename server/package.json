@@ -2,11 +2,10 @@
   "name": "project",
   "version": "1.0.0",
   "main": "index.js",
-  "scripts": {
-    "start": "node index.js",
-    "dev": "nodemon index.js",
-    "build": "echo 'No build step for backend' || exit 0"
-  },
+	"scripts": {
+		"start": "node index.js",
+		"dev": "nodemon index.js"
+	},
   "keywords": [],
   "author": "",
   "license": "ISC",
