@@ -8,7 +8,7 @@ const { uploadImageToCloudinary } = require("../utils/imageUploader");
 exports.updateProfile = async (req,res) =>{
     try{
         //fetch data
-        const {dateOfBirth="", about="", contactNumber="", gender=""} = req.body;
+        const {dateOfBirth="", about="", contactNumber="", gender="",firstName="", lastName=""} = req.body;
         console.log("->>",dateOfBirth);
         //get user ID
         const id = req.user.id;
@@ -29,16 +29,22 @@ exports.updateProfile = async (req,res) =>{
         profileDetails.dateOfBirth = dateOfBirth;
         profileDetails.about = about;
         profileDetails.contactNumber = contactNumber;
+        userDetail.firstName = firstName;
+        userDetail.lastName = lastName;
+
         
         console.log("->>>>",dateOfBirth);
         //save in db
         await profileDetails.save();
-        
+        await userDetail.save();
+
         //return res
+        userDetail.password = undefined;
         return res.status(200).json({
             success:true,
             message:"profile saved succesfully",
             profileDetails,
+            updatedUserDetails:userDetail
         });
 
     } catch(err){

@@ -2,7 +2,7 @@ import React from "react";
 import { FaArrowRight } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import HighlightText from "../component/core/HomePage/HighlightText";
-import CTAButton from "../component/core/HomePage/Button";
+import CTAButton from "../component/common/Button";
 import banner from "../assets/Images/banner.mp4"
 import CodeBlocks from "../component/core/HomePage/CodeBlocks";
 import Footer from "../component/common/Footer";
@@ -50,7 +50,7 @@ const Home = () => {
             </div>
 
             <div className="relative mx-3 my-12 max-w-[940px] shadow-[18px_22px_0px_#ffffff]">
-                <div className="shadow-[-2px_-2px_30px_0px_#118AB2]">
+                <div className="shadow-[-4px_-4px_20px_0px_#118AB2]">
                     <video muted loop autoPlay src={banner} className=""></video>
                 </div>
             </div>

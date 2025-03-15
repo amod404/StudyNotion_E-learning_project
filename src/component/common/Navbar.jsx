@@ -22,7 +22,6 @@ const Navbar = () => {
   const fetchSublinks = async () => {
     try{
         const result = await apiConnector("GET", categories.CATEGORIES_API)
-        console.log("resut->>>>>>",result.data.data)
         setSubLinks(result?.data?.data);
     }catch(err){
         console.log("could not fetch the category list", err);
@@ -31,6 +30,7 @@ const Navbar = () => {
 
   useEffect( () => {
     fetchSublinks();
+    // eslint-disable-next-line
   },[])
   
   const matchRoute = (route) => {
@@ -80,7 +80,7 @@ const Navbar = () => {
 
                                         </div>
                                     ) : (
-                                        <Link to={link?.path}>
+                                        <Link to={link.path}>
                                             <p className={`${matchRoute(link?.path) && "text-yellow-25"}`}>
                                                 {link.title}
                                             </p>
@@ -97,7 +97,7 @@ const Navbar = () => {
 
             <div className="flex gap-x-4 items-center">
                 {
-                    token && user && user?.accountType != "Instructor" && (
+                    token && user && user?.accountType !== "Instructor" && (
                         <Link to="/dashboard/cart" className="relative">
                             <AiOutlineShoppingCart />
                             {

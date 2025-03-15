@@ -62,7 +62,7 @@ exports.signUp = async(req,res) => {
 
     try{
         //data fetch from request ki body (this is coming from UI/frontend)
-        const {firstName, lastName, email, password, confirmPassword,accountType,contactNumber,otp} = req.body;
+        const {firstName, lastName, email, password, confirmPassword,accountType,contactNumber=1000000000,otp} = req.body;
         // console.log(email);
 
         // validate krlo
@@ -162,7 +162,7 @@ exports.login = async (req,res) => {
             });
         }
         //user exist or not
-        const user = await User.findOne({email});
+        const user = await User.findOne({email}).populate('additionalDetails');
         if(!user){
             return res.status(402).json({
                 success:false,
@@ -223,13 +223,13 @@ exports.changePassword = async (req,res) => {
         //get oldPassword, newPassword, confirmNewPassword
         const {oldPassword, newPassword, confirmNewPassword} = req.body;
         //validation
-        if(!confirmNewPassword !== newPassword){
+        if(confirmNewPassword !== newPassword){
             return res.status(401).json({
                 success:false,
                 message:"Confirmation do not match."
             });
         }
-
+        
         //check if password is correct
         const isMatched = await bcrypt.compare(oldPassword,details.password);
         if(!isMatched){
@@ -270,7 +270,7 @@ exports.changePassword = async (req,res) => {
 
         //return response
         return res.status(200).json({
-            success:false,
+            success:true,
             message:"password updated successfully."
         })
 
