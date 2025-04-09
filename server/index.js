@@ -32,7 +32,7 @@ app.use(cookieParser());
 //     })
 // );
 
-const allowedOrigins = ['http://localhost:3000', 'http://localhost:3001'];
+const allowedOrigins = ['http://localhost:3000', 'http://localhost:3001','https://study-notion-amod-yadav.vercel.app/','https://study-notion-amod-yadav.vercel.app'];
 
 app.use(cors({
     origin: function (origin, callback) {
